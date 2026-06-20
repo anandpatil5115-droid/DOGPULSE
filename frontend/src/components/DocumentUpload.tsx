@@ -47,7 +47,8 @@ const DocumentUpload: React.FC<DocumentUploadProps> = ({ sessionId, onDocumentIn
     formData.append('sessionId', sessionId);
 
     try {
-      const response = await axios.post<UploadResponse>('/api/documents/upload', formData, {
+      const baseUrl = import.meta.env.VITE_API_URL || '';
+      const response = await axios.post<UploadResponse>(`${baseUrl}/api/documents/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         onUploadProgress: (progressEvent) => {
           if (progressEvent.total) {

@@ -82,7 +82,8 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ sessionId }) => {
 
     try {
       const isFollowUp = messageCountRef.current > 0;
-      const endpoint = isFollowUp ? '/api/chat/followup' : '/api/chat';
+      const baseUrl = import.meta.env.VITE_API_URL || '';
+      const endpoint = isFollowUp ? `${baseUrl}/api/chat/followup` : `${baseUrl}/api/chat`;
 
       const response = await axios.post(endpoint, {
         message: messageText.trim(),
