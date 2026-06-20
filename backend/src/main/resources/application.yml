@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:h2:mem:ragdb;DB_CLOSE_DELAY=-1;MODE=PostgreSQL}
+    username: ${SPRING_DATASOURCE_USERNAME:sa}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.h2.Driver}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: ${SPRING_JPA_DIALECT:org.hibernate.dialect.H2Dialect}
+  ai:
+    openai:
+      api-key: ${GROQ_API_KEY:YOUR_GROQ_API_KEY_HERE}
+      base-url: https://api.groq.com/openai/
+      chat:
+        options:
+          model: llama-3.1-8b-instant
+        temperature: 0.7
+      embedding:
+        enabled: false
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+rag:
+  config:
+    max-files: 60
+    retries: 5
+    timeout-ms: 60000
+    concurrency-limit: 4
+  vector-store-type: ${RAG_VECTOR_STORE_TYPE:inmemory}
+
+logging:
+  level:
+    com.ragchat: DEBUG
+    org.springframework.ai: INFO
