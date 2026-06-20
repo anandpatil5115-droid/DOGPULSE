@@ -20,6 +20,14 @@ public class RagChatbotApplication {
                 }
                 return new org.springframework.ai.embedding.EmbeddingResponse(embeddings);
             }
+            @Override
+            public float[] embed(org.springframework.ai.document.Document document) {
+                return new float[384];
+            }
+            @Override
+            public int dimensions() {
+                return 384;
+            }
         };
     }
 }
